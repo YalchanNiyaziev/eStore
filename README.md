@@ -1,2 +1,2 @@
 # eStore
-Online store app, which is for learning purpose
+Online store api, which is for learning purpose

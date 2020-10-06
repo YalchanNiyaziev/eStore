@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class Order {
-    private String id;
+    private UUID id;
     private String orderNumber;
     private Customer customer;
     private List<Product> products;

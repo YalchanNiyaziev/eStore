@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class Account {
-    private String id;
+    private UUID id;
     private String iban;
     private BigDecimal balance;
     private Customer accountOwner;

@@ -1,6 +1,7 @@
-package com.yalco.estore.entity;
+package com.yalco.estore.entity.purchase;
 
 import com.yalco.estore.entity.enums.PaymentType;
+import com.yalco.estore.entity.purchase.Order;
 import lombok.Getter;
 import lombok.Setter;
 

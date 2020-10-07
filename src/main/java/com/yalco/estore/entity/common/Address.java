@@ -1,4 +1,4 @@
-package com.yalco.estore.entity.customer.contacts;
+package com.yalco.estore.entity.common;
 
 import lombok.Getter;
 import lombok.Setter;

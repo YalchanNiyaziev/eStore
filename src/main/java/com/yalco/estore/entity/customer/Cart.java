@@ -1,34 +1,29 @@
 package com.yalco.estore.entity.customer;
 
+import com.yalco.estore.entity.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-@Table(name="customers")
-public class Customer {
+@Table(name="carts")
+public class Cart {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name= "id",updatable = false, nullable = false)
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
-
-    @OneToOne
-    @JoinColumn(name = "contact_id",nullable = false)
-    private CustomerContacts contacts;
-
-    @OneToOne
-    @JoinColumn(name = "cart_id",nullable = false)
-    private Cart cart;
+    @OneToMany(mappedBy = "cart")
+    private List<Product> products= new ArrayList<>();
 }

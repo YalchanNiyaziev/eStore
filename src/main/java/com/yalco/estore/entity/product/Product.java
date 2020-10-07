@@ -1,6 +1,7 @@
 package com.yalco.estore.entity.product;
 
-import com.yalco.estore.entity.Cart;
+import com.yalco.estore.entity.customer.Cart;
+import com.yalco.estore.entity.purchase.Order;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -44,6 +46,9 @@ public class Product {
     @OneToMany
     @JoinColumn(name = "specification_id")
     private List<ProductSpecification> specifications;
+
+    @ManyToMany(mappedBy = "products")
+    private Set<Order> orders;
 
     //pictures
 }

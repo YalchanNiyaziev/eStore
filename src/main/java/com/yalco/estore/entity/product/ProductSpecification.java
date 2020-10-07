@@ -1,6 +1,6 @@
 package com.yalco.estore.entity.product;
 
-import com.yalco.estore.entity.customer.contacts.Address;
+import com.yalco.estore.entity.common.Address;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;

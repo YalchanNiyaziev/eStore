@@ -32,8 +32,8 @@ public class Product {
     @Column(name="code",nullable = false)
     private String productCode;
 
-    @ManyToOne
-    @JoinColumn(name="categoty_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="category_id")
     private Category category;
 
     @Column(nullable = false)

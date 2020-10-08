@@ -1,2 +1,4 @@
-package com.yalco.estore.service;public interface CustomerService {
+package com.yalco.estore.service;
+
+public interface CustomerService {
 }

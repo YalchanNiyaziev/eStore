@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -30,6 +31,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto getCategoryById(String id) {
-        return null;
+        Optional<Category> category = categoryRepository.findByIdAndAccessibleTrue(UUID.fromString(id));
+        if(!category.isPresent()){
+            return null;
+        }
+        return mapper.map(category.get(),CategoryDto.class);
+    }
+
+    @Override
+    public boolean deleteCategoryById(String id) {
+        Optional<Category> category = categoryRepository.findByIdAndAccessibleTrue(UUID.fromString(id));
+        if(category.isPresent()){
+            category.get().setAccessible(false);
+            categoryRepository.save(category.get());
+            return isCategoryDeleted(UUID.fromString(id));
+        }
+        return false;
+    }
+
+    private boolean isCategoryDeleted(UUID id){
+       return !categoryRepository
+               .findById(id)
+               .get()
+               .isAccessible();
     }
 }

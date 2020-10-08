@@ -6,5 +6,6 @@ import com.yalco.estore.model.dto.CategoryDto;
 public interface CategoryService {
     CategoryDto createCategory(CategoryPostModel categoryPostModel);
     CategoryDto getCategoryById(String id);
+    boolean deleteCategoryById(String id);
 
 }

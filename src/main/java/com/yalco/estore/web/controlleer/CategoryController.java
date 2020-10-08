@@ -20,22 +20,33 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getById(@PathVariable String id){
-        int b =5;
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setId("15");
+        CategoryDto categoryDto = categoryService.getCategoryById(id);
         return ResponseEntity.ok(categoryDto);
     }
+
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody CategoryPostModel categoryPostModel, UriComponentsBuilder uriBuilder){
         CategoryDto categoryDto = categoryService.createCategory(categoryPostModel);
         return
+
                 ResponseEntity
                         .created(
-                                uriBuilder.path("/api/categories/{id}")
+                                uriBuilder.path("/api/customers/{id}")
                                           .buildAndExpand(categoryDto.getId())
                                           .toUri()
                         )
                         .build();
+
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable String id){
+        boolean isSuccessfullyDeleted = categoryService.deleteCategoryById(id);
+        if (isSuccessfullyDeleted)
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.badRequest().build();
+    }
+
+
 
 }

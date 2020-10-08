@@ -25,4 +25,11 @@ public class Category {
     @Enumerated(EnumType.STRING)
     @Column(name="type")
     private ProductCategoryType categoryType;
+
+    @Column(name="is_accessible",nullable = false)
+    private boolean isAccessible;
+
+    public Category() {
+        isAccessible=true;
+    }
 }

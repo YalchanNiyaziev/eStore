@@ -5,6 +5,7 @@ import com.yalco.estore.model.binding.CategoryPostModel;
 import com.yalco.estore.model.dto.CategoryDto;
 import com.yalco.estore.repository.CategoryRepository;
 import com.yalco.estore.service.CategoryService;
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getCategoryById(String id) {
         Optional<Category> category = categoryRepository.findByIdAndAccessibleTrue(UUID.fromString(id));
-        if(!category.isPresent()){
-            return null;
-        }
-        return mapper.map(category.get(),CategoryDto.class);
+        return category.map(value -> mapper.map(value, CategoryDto.class)).orElse(null);
     }
 
     @Override

@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -33,4 +34,20 @@ public class Address {
 
     @Column(name="street_numbers")
     private String streetNumber;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return Objects.equals(getCountry(), address.getCountry()) &&
+                Objects.equals(getCity(), address.getCity()) &&
+                Objects.equals(getStreet(), address.getStreet()) &&
+                Objects.equals(getStreetNumber(), address.getStreetNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCountry(), getCity(), getStreet(), getStreetNumber());
+    }
 }

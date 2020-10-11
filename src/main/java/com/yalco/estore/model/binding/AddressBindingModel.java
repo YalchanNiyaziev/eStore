@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddressPostModel {
+public class AddressBindingModel {
     private String country;
     private String city;
     private String street;

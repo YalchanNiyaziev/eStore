@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomerContactsPostModel {
+public class CustomerContactsBindingModel {
     private String phone;
     private String email;
-    private AddressPostModel address;
+    private AddressBindingModel address;
 }

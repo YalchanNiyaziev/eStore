@@ -21,8 +21,11 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getById(@PathVariable String id){
         CategoryDto categoryDto = categoryService.getCategoryById(id);
-        return ResponseEntity.ok(categoryDto);
-    }
+        if (categoryDto !=null) {
+            return ResponseEntity.ok(categoryDto);
+        }
+        return ResponseEntity.notFound().build();
+        }
 
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody CategoryPostModel categoryPostModel, UriComponentsBuilder uriBuilder){
@@ -31,7 +34,7 @@ public class CategoryController {
 
                 ResponseEntity
                         .created(
-                                uriBuilder.path("/api/customers/{id}")
+                                uriBuilder.path("/api/categories/{id}")
                                           .buildAndExpand(categoryDto.getId())
                                           .toUri()
                         )

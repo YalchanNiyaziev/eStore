@@ -24,11 +24,11 @@ public class Customer {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id",nullable = false)
     private CustomerContacts contacts;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id",nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 }

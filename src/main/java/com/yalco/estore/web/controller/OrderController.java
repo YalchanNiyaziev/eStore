@@ -1,4 +1,4 @@
-package com.yalco.estore.web.controlleer;
+package com.yalco.estore.web.controller;
 
 import com.yalco.estore.model.binding.OrderPostModel;
 import com.yalco.estore.service.OrderService;

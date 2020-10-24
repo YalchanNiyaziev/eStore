@@ -2,7 +2,7 @@ package com.yalco.estore.service.impl;
 
 import com.yalco.estore.entity.purchase.Order;
 import com.yalco.estore.model.binding.OrderPostModel;
-import com.yalco.estore.model.dto.OrderDto;
+import com.yalco.estore.model.view.OrderDto;
 import com.yalco.estore.repository.OrderRepository;
 import com.yalco.estore.service.OrderService;
 import org.modelmapper.ModelMapper;
@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public OderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
     }

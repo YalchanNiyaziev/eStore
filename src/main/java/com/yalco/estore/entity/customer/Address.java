@@ -1,4 +1,4 @@
-package com.yalco.estore.entity.common;
+package com.yalco.estore.entity.customer;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,13 +23,13 @@ public class Address {
     @Column(nullable = false)
     private String country;
 
-    @Column
+    @Column(nullable = false)
     private String city;
 
-    @Column
+    @Column(nullable = false)
     private String street;
 
-    @Column(name="street_numbers")
+    @Column(name="street_numbers",nullable = false)
     private String streetNumber;
 
     @Override

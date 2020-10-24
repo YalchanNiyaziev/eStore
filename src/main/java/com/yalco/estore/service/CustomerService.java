@@ -1,10 +1,12 @@
 package com.yalco.estore.service;
 
-import com.yalco.estore.model.binding.CustomerBindingModel;
-import com.yalco.estore.model.dto.CustomerDto;
+import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.model.binding.customer.CustomerCreateModel;
+import com.yalco.estore.model.binding.customer.CustomerUpdateModel;
+import com.yalco.estore.model.view.customer.CustomerViewModel;
 
 public interface CustomerService {
-    CustomerDto getCustomerById(String id);
-    CustomerDto createCustomer(CustomerBindingModel customerBindingModel);
-    CustomerDto updateCustomer(String id,CustomerBindingModel customerBindingModel);
+    CustomerViewModel getCustomerById(String id) throws IdNotFoundException;
+    CustomerViewModel createCustomer(CustomerCreateModel customerModel);
+    CustomerViewModel updateCustomer(String id, CustomerUpdateModel customerModel) throws IdNotFoundException;
 }

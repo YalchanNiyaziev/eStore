@@ -1,4 +1,4 @@
-package com.yalco.estore.model.dto;
+package com.yalco.estore.model.view;
 
 public class CategoryDto {
     private String id;

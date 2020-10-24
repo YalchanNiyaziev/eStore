@@ -1,6 +1,6 @@
 package com.yalco.estore.entity.product;
 
-import com.yalco.estore.entity.common.Address;
+import com.yalco.estore.entity.customer.Address;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

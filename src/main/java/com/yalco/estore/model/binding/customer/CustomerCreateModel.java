@@ -1,18 +1,10 @@
-package com.yalco.estore.model.binding;
+package com.yalco.estore.model.binding.customer;
 
+import com.yalco.estore.model.binding.CustomerContactsBindingModel;
 
-public class CustomerBindingModel {
-    private String id;
+public class CustomerCreateModel {
     private String name;
     private CustomerContactsBindingModel contacts;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

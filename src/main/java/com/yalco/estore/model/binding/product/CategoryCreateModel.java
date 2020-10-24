@@ -1,7 +1,7 @@
-package com.yalco.estore.model.binding;
+package com.yalco.estore.model.binding.product;
 
+public class CategoryCreateModel {
 
-public class CategoryPostModel {
     private String categoryType;
 
     public String getCategoryType() {

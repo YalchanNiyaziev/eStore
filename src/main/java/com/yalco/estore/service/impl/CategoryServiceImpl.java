@@ -1,11 +1,11 @@
 package com.yalco.estore.service.impl;
 
 import com.yalco.estore.entity.product.Category;
-import com.yalco.estore.model.binding.CategoryPostModel;
-import com.yalco.estore.model.dto.CategoryDto;
+import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.model.binding.product.CategoryCreateModel;
+import com.yalco.estore.model.view.CategoryDto;
 import com.yalco.estore.repository.CategoryRepository;
 import com.yalco.estore.service.CategoryService;
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -24,33 +24,25 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto createCategory(CategoryPostModel categoryPostModel) {
-        Category category = mapper.map(categoryPostModel,Category.class);
-        Category savedCategory= categoryRepository.save(category);
-        return mapper.map(savedCategory,CategoryDto.class);
+    public CategoryDto createCategory(CategoryCreateModel categoryCreateModel) {
+        Category category = mapper.map(categoryCreateModel, Category.class);
+        Category savedCategory = categoryRepository.save(category);
+        return mapper.map(savedCategory, CategoryDto.class);
     }
 
     @Override
-    public CategoryDto getCategoryById(String id) {
+    public CategoryDto getCategoryById(String id) throws IdNotFoundException {
         Optional<Category> category = categoryRepository.findByIdAndAccessibleTrue(UUID.fromString(id));
-        return category.map(value -> mapper.map(value, CategoryDto.class)).orElse(null);
+        return category.map(value -> mapper.map(value, CategoryDto.class)).orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id));
     }
 
     @Override
-    public boolean deleteCategoryById(String id) {
-        Optional<Category> category = categoryRepository.findByIdAndAccessibleTrue(UUID.fromString(id));
-        if(category.isPresent()){
-            category.get().setAccessible(false);
-            categoryRepository.save(category.get());
-            return isCategoryDeleted(UUID.fromString(id));
-        }
-        return false;
+    public void deleteCategoryById(String id) throws IdNotFoundException {
+        Optional<Category> category = Optional.ofNullable(categoryRepository
+                .findByIdAndAccessibleTrue(UUID.fromString(id))
+                .orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id)));
+        category.get().setAccessible(false);
+        categoryRepository.save(category.get());
     }
 
-    private boolean isCategoryDeleted(UUID id){
-       return !categoryRepository
-               .findById(id)
-               .get()
-               .isAccessible();
-    }
 }

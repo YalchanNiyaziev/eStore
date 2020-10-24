@@ -19,7 +19,7 @@ public class Category {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="type")
+    @Column(name="type", nullable = false)
     private ProductCategoryType categoryType;
 
     @Column(name="is_accessible",nullable = false)

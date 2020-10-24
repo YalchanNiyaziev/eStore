@@ -1,15 +1,15 @@
 package com.yalco.estore.model.binding;
 
+import com.yalco.estore.model.binding.customer.CustomerUpdateModel;
+
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 public class OrderPostModel {
     private String id;
     private String orderNumber;
     private LocalDate orderDate;
-    private CustomerBindingModel customer;
+    private CustomerUpdateModel customer;
     private Set<ProductBindingModel> products;
 
     public String getId() {
@@ -36,11 +36,11 @@ public class OrderPostModel {
         this.orderDate = orderDate;
     }
 
-    public CustomerBindingModel getCustomer() {
+    public CustomerUpdateModel getCustomer() {
         return customer;
     }
 
-    public void setCustomer(CustomerBindingModel customer) {
+    public void setCustomer(CustomerUpdateModel customer) {
         this.customer = customer;
     }
 

@@ -1,16 +1,12 @@
 package com.yalco.estore.entity.customer;
 
 import com.yalco.estore.entity.common.Address;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
-@Getter
-@Setter
 @Entity
 @Table(name="contacts")
 public class CustomerContacts {
@@ -46,5 +42,37 @@ public class CustomerContacts {
     @Override
     public int hashCode() {
         return Objects.hash(getPhone(), getEmail(), getAddress());
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

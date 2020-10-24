@@ -1,15 +1,12 @@
 package com.yalco.estore.entity.common;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name="addresses")
 public class Address {
@@ -49,5 +46,45 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(getCountry(), getCity(), getStreet(), getStreetNumber());
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
     }
 }

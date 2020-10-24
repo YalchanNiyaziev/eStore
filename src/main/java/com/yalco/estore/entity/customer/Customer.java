@@ -1,14 +1,10 @@
 package com.yalco.estore.entity.customer;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
 @Entity
 @Table(name="customers")
 public class Customer {
@@ -31,4 +27,36 @@ public class Customer {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public CustomerContacts getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(CustomerContacts contacts) {
+        this.contacts = contacts;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }

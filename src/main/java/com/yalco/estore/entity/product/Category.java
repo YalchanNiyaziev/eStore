@@ -1,15 +1,11 @@
 package com.yalco.estore.entity.product;
 
 import com.yalco.estore.entity.enums.ProductCategoryType;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -31,5 +27,29 @@ public class Category {
 
     public Category() {
         isAccessible=true;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public ProductCategoryType getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(ProductCategoryType categoryType) {
+        this.categoryType = categoryType;
+    }
+
+    public boolean isAccessible() {
+        return isAccessible;
+    }
+
+    public void setAccessible(boolean accessible) {
+        isAccessible = accessible;
     }
 }

@@ -1,15 +1,11 @@
 package com.yalco.estore.entity.product;
 
 import com.yalco.estore.entity.common.Address;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
 @Entity
 @Table(name="product_specifications")
 public class ProductSpecification {
@@ -31,4 +27,36 @@ public class ProductSpecification {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address releaseLocation;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
+
+    public Address getReleaseLocation() {
+        return releaseLocation;
+    }
+
+    public void setReleaseLocation(Address releaseLocation) {
+        this.releaseLocation = releaseLocation;
+    }
 }

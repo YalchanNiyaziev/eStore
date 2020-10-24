@@ -3,7 +3,7 @@ package com.yalco.estore.service.impl;
 import com.yalco.estore.entity.product.Category;
 import com.yalco.estore.exception.IdNotFoundException;
 import com.yalco.estore.model.binding.product.CategoryCreateModel;
-import com.yalco.estore.model.view.CategoryDto;
+import com.yalco.estore.model.view.product.CategoryViewModel;
 import com.yalco.estore.repository.CategoryRepository;
 import com.yalco.estore.service.CategoryService;
 import org.modelmapper.ModelMapper;
@@ -24,16 +24,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto createCategory(CategoryCreateModel categoryCreateModel) {
+    public CategoryViewModel createCategory(CategoryCreateModel categoryCreateModel) {
         Category category = mapper.map(categoryCreateModel, Category.class);
         Category savedCategory = categoryRepository.save(category);
-        return mapper.map(savedCategory, CategoryDto.class);
+        return mapper.map(savedCategory, CategoryViewModel.class);
     }
 
     @Override
-    public CategoryDto getCategoryById(String id) throws IdNotFoundException {
+    public CategoryViewModel getCategoryById(String id) throws IdNotFoundException {
         Optional<Category> category = categoryRepository.findByIdAndAccessibleTrue(UUID.fromString(id));
-        return category.map(value -> mapper.map(value, CategoryDto.class)).orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id));
+        return category.map(value -> mapper.map(value, CategoryViewModel.class)).orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id));
     }
 
     @Override

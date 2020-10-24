@@ -1,6 +1,6 @@
-package com.yalco.estore.model.view;
+package com.yalco.estore.model.view.product;
 
-public class CategoryDto {
+public class CategoryViewModel {
     private String id;
     private String categoryType;
 

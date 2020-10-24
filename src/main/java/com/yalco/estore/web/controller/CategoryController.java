@@ -2,7 +2,7 @@ package com.yalco.estore.web.controller;
 
 import com.yalco.estore.exception.IdNotFoundException;
 import com.yalco.estore.model.binding.product.CategoryCreateModel;
-import com.yalco.estore.model.view.CategoryDto;
+import com.yalco.estore.model.view.product.CategoryViewModel;
 import com.yalco.estore.service.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -20,23 +20,23 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> getById(@PathVariable String id) throws IdNotFoundException {
-        CategoryDto categoryDto = categoryService.getCategoryById(id);
-        if (categoryDto != null) {
-            return ResponseEntity.ok(categoryDto);
+    public ResponseEntity<CategoryViewModel> getById(@PathVariable String id) throws IdNotFoundException {
+        CategoryViewModel categoryViewModel = categoryService.getCategoryById(id);
+        if (categoryViewModel != null) {
+            return ResponseEntity.ok(categoryViewModel);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody @NonNull CategoryCreateModel categoryCreateModel, UriComponentsBuilder uriBuilder) {
-        CategoryDto categoryDto = categoryService.createCategory(categoryCreateModel);
+        CategoryViewModel categoryViewModel = categoryService.createCategory(categoryCreateModel);
         return
 
                 ResponseEntity
                         .created(
                                 uriBuilder.path("/api/categories/{id}")
-                                        .buildAndExpand(categoryDto.getId())
+                                        .buildAndExpand(categoryViewModel.getId())
                                         .toUri()
                         )
                         .build();

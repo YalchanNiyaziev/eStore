@@ -7,12 +7,13 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
 
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -20,35 +21,46 @@ public class Product {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name= "id",updatable = false, nullable = false)
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(name="code",nullable = false)
+    @Column(name = "code", nullable = false)
     private String productCode;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(nullable = false)
+    private String manufacturer;
+
+    @Column(name = "count", nullable = false)
+    private Integer productCount;
+
+    @Column(name = "made_in")
+    private String releaseLocation;
+
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
-    @JoinColumn(name="card_id")
+    @JoinColumn(name = "card_id")
     private Cart cart;
 
-    @OneToMany
-    @JoinColumn(name = "specification_id")
-    private List<ProductSpecification> specifications;
+    @ElementCollection
+    private List<String> pictures;
+
+    @ElementCollection
+    private Map<String, String> customSpecifications;
 
     @ManyToMany(mappedBy = "products")
     private Set<Order> orders;
-
-    //pictures
-
 
     public UUID getId() {
         return id;
@@ -90,6 +102,38 @@ public class Product {
         this.price = price;
     }
 
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
+
+    public String getReleaseLocation() {
+        return releaseLocation;
+    }
+
+    public void setReleaseLocation(String releaseLocation) {
+        this.releaseLocation = releaseLocation;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Cart getCart() {
         return cart;
     }
@@ -98,12 +142,20 @@ public class Product {
         this.cart = cart;
     }
 
-    public List<ProductSpecification> getSpecifications() {
-        return specifications;
+    public List<String> getPictures() {
+        return pictures;
     }
 
-    public void setSpecifications(List<ProductSpecification> specifications) {
-        this.specifications = specifications;
+    public void setPictures(List<String> pictures) {
+        this.pictures = pictures;
+    }
+
+    public Map<String, String> getCustomSpecifications() {
+        return customSpecifications;
+    }
+
+    public void setCustomSpecifications(Map<String, String> customSpecifications) {
+        this.customSpecifications = customSpecifications;
     }
 
     public Set<Order> getOrders() {

@@ -2,8 +2,8 @@ package com.yalco.estore.service.impl;
 
 import com.yalco.estore.entity.product.Category;
 import com.yalco.estore.exception.IdNotFoundException;
-import com.yalco.estore.model.binding.product.CategoryCreateModel;
-import com.yalco.estore.model.view.product.CategoryViewModel;
+import com.yalco.estore.model.binding.product.category.CategoryCreateModel;
+import com.yalco.estore.model.view.product.category.CategoryViewModel;
 import com.yalco.estore.repository.CategoryRepository;
 import com.yalco.estore.service.CategoryService;
 import org.modelmapper.ModelMapper;

@@ -1,4 +1,6 @@
-package com.yalco.estore.model.view.customer;
+package com.yalco.estore.model.view.customer.contacts;
+
+import com.yalco.estore.model.view.customer.address.AddressViewModel;
 
 public class CustomerContactsViewModel {
     private String phone;

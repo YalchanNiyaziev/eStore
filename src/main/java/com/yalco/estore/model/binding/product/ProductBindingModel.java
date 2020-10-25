@@ -1,29 +1,21 @@
-package com.yalco.estore.model.view.product;
+package com.yalco.estore.model.binding.product;
 
-import com.yalco.estore.model.view.product.category.CategoryViewModel;
+import com.yalco.estore.model.binding.product.category.CategoryBindingModel;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-public class ProductViewModel {
-    private String id;
+public class ProductBindingModel {
     private String name;
-    private CategoryViewModel category;
+    private CategoryBindingModel category;
     private BigDecimal price;
     private String manufacturer;
+    private Integer productCount;
     private String releaseLocation;
     private String description;
-    private List<String> pictures;
-    private Map<String,String> customSpecifications;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    List<String> pictures;
+    Map<String,String> customSpecifications;
 
     public String getName() {
         return name;
@@ -33,11 +25,11 @@ public class ProductViewModel {
         this.name = name;
     }
 
-    public CategoryViewModel getCategory() {
+    public CategoryBindingModel  getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryViewModel category) {
+    public void setCategory(CategoryBindingModel category) {
         this.category = category;
     }
 
@@ -55,6 +47,14 @@ public class ProductViewModel {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
     }
 
     public String getReleaseLocation() {

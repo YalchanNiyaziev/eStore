@@ -1,5 +1,7 @@
 package com.yalco.estore.model.view.customer;
 
+import com.yalco.estore.model.view.customer.contacts.CustomerContactsViewModel;
+
 public class CustomerViewModel {
     private String id;
     private String name;

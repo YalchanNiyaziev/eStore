@@ -1,6 +1,6 @@
-package com.yalco.estore.model.binding;
+package com.yalco.estore.model.view.customer.address;
 
-public class AddressBindingModel {
+public class AddressViewModel {
     private String country;
     private String city;
     private String street;

@@ -1,8 +1,8 @@
 package com.yalco.estore.web.controller;
 
 import com.yalco.estore.exception.IdNotFoundException;
-import com.yalco.estore.model.binding.product.CategoryCreateModel;
-import com.yalco.estore.model.view.product.CategoryViewModel;
+import com.yalco.estore.model.binding.product.category.CategoryCreateModel;
+import com.yalco.estore.model.view.product.category.CategoryViewModel;
 import com.yalco.estore.service.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;

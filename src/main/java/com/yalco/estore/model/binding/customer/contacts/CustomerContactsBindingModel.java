@@ -1,5 +1,7 @@
-package com.yalco.estore.model.binding;
+package com.yalco.estore.model.binding.customer.contacts;
 
+
+import com.yalco.estore.model.binding.customer.address.AddressBindingModel;
 
 public class CustomerContactsBindingModel {
     private String phone;

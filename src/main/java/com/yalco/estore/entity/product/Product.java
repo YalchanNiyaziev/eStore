@@ -27,9 +27,6 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "code", nullable = false)
-    private String productCode;
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -49,8 +46,8 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "card_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @ElementCollection
@@ -59,7 +56,7 @@ public class Product {
     @ElementCollection
     private Map<String, String> customSpecifications;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products",fetch = FetchType.LAZY)
     private Set<Order> orders;
 
     public UUID getId() {
@@ -76,14 +73,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
     }
 
     public Category getCategory() {
@@ -165,4 +154,5 @@ public class Product {
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
+
 }

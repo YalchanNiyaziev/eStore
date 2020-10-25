@@ -1,4 +1,4 @@
-package com.yalco.estore.model.binding.product;
+package com.yalco.estore.model.binding.product.category;
 
 public class CategoryCreateModel {
 

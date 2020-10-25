@@ -1,4 +1,4 @@
-package com.yalco.estore.model.view.product;
+package com.yalco.estore.model.view.product.category;
 
 public class CategoryViewModel {
     private String id;

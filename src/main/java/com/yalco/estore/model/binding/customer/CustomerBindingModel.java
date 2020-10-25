@@ -1,8 +1,8 @@
 package com.yalco.estore.model.binding.customer;
 
-import com.yalco.estore.model.binding.CustomerContactsBindingModel;
+import com.yalco.estore.model.binding.customer.contacts.CustomerContactsBindingModel;
 
-public class CustomerCreateModel {
+public class CustomerBindingModel {
     private String name;
     private CustomerContactsBindingModel contacts;
 

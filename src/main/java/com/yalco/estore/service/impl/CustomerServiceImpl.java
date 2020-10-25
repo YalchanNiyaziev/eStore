@@ -4,9 +4,8 @@ import com.yalco.estore.entity.customer.Cart;
 import com.yalco.estore.entity.customer.Customer;
 import com.yalco.estore.entity.customer.CustomerContacts;
 import com.yalco.estore.exception.IdNotFoundException;
-import com.yalco.estore.model.binding.customer.CustomerCreateModel;
-import com.yalco.estore.model.binding.customer.CustomerUpdateModel;
-import com.yalco.estore.model.binding.CustomerContactsBindingModel;
+import com.yalco.estore.model.binding.customer.CustomerBindingModel;
+import com.yalco.estore.model.binding.customer.contacts.CustomerContactsBindingModel;
 import com.yalco.estore.model.view.customer.CustomerViewModel;
 import com.yalco.estore.repository.CustomerRepository;
 import com.yalco.estore.service.CustomerService;
@@ -36,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerViewModel createCustomer(CustomerCreateModel customerModel) {
+    public CustomerViewModel createCustomer(CustomerBindingModel customerModel) {
         Customer customer = modelMapper.map(customerModel, Customer.class);
         customer.setCart(new Cart());
         Customer savedCustomer = customerRepository.save(customer);
@@ -44,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerViewModel updateCustomer(String id, CustomerUpdateModel customerBindingModel) throws IdNotFoundException {
+    public CustomerViewModel updateCustomer(String id, CustomerBindingModel customerBindingModel) throws IdNotFoundException {
         Optional<Customer> optionalCustomer = customerRepository.findById(UUID.fromString(id));
         if (!optionalCustomer.isPresent()) {
             throw new IdNotFoundException("Could not found object with id: ", id);

@@ -1,6 +1,6 @@
 package com.yalco.estore.entity.product;
 
-import com.yalco.estore.entity.customer.Cart;
+import com.yalco.estore.entity.cart.Cart;
 import com.yalco.estore.entity.purchase.Order;
 import org.hibernate.annotations.GenericGenerator;
 

@@ -14,5 +14,5 @@ import java.util.UUID;
 public interface CategoryRepository extends JpaRepository<Category, UUID> {
 
     @Query(value = "select c from Category c where c.id = :category_id and c.isAccessible = true")
-   Optional<Category> findByIdAndAccessibleTrue(@Param(value = "category_id") UUID id);
+    Optional<Category> findByIdAndAccessibleTrue(@Param(value = "category_id") UUID id);
 }

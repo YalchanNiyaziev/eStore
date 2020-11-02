@@ -1,6 +1,6 @@
 package com.yalco.estore.service.impl;
 
-import com.yalco.estore.entity.customer.Cart;
+import com.yalco.estore.entity.cart.Cart;
 import com.yalco.estore.entity.customer.Customer;
 import com.yalco.estore.entity.customer.CustomerContacts;
 import com.yalco.estore.exception.IdNotFoundException;

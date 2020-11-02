@@ -1,5 +1,6 @@
 package com.yalco.estore.entity.customer;
 
+import com.yalco.estore.entity.cart.Cart;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

@@ -46,10 +46,6 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
     @ElementCollection
     private List<String> pictures;
 
@@ -121,14 +117,6 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public List<String> getPictures() {

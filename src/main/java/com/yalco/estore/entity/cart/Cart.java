@@ -1,6 +1,5 @@
 package com.yalco.estore.entity.cart;
 
-import com.yalco.estore.entity.product.Product;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,8 +19,8 @@ public class Cart {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @OneToMany(mappedBy = "cart")
-    private List<Product> products= new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "cart")
+    private List<CartItem> cartItems= new ArrayList<>();
 
     public UUID getId() {
         return id;
@@ -31,11 +30,11 @@ public class Cart {
         this.id = id;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 }

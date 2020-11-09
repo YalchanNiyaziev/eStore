@@ -1,6 +1,8 @@
 package com.yalco.estore.repository;
 
 import com.yalco.estore.entity.product.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,14 +18,14 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     Optional<Product> getById(UUID id);
 
-    List<Product> getAllByCategoryId(UUID categoryId);
+    Page<Product> getAllByCategoryId(UUID categoryId, Pageable pageable);
 
     @Query(value = "select p.manufacturer from Product p where p.category.id = :category_id")
     List<String> getAllManufacturersByProductCategory(@Param(value = "category_id") UUID categoryId);
 
-    List<Product> getAllByCategoryIdAndManufacturer(UUID categoryId, String manufacturer);
+    Page<Product> getAllByCategoryIdAndManufacturer(UUID categoryId, String manufacturer, Pageable pageable);
 
-    List<Product> getAllByCategoryIdAndPriceBetween(UUID categoryId, BigDecimal priceRangeBegin, BigDecimal priceRangeEnd);
+    Page<Product> getAllByCategoryIdAndPriceBetween(UUID categoryId, BigDecimal priceRangeBegin, BigDecimal priceRangeEnd, Pageable pageable);
 
-    List<Product> getAllByCategoryIdAndManufacturerAndPriceBetween(UUID categoryOd,String manufacturer, BigDecimal priceRangeBegin, BigDecimal priceRangeEnd);
+    Page<Product> getAllByCategoryIdAndManufacturerAndPriceBetween(UUID categoryOd,String manufacturer, BigDecimal priceRangeBegin, BigDecimal priceRangeEnd, Pageable pageable);
 }

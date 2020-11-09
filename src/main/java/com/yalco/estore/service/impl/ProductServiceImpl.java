@@ -10,6 +10,10 @@ import com.yalco.estore.repository.ProductRepository;
 import com.yalco.estore.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,20 +48,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductViewModel> getProductsByCategory(String category) {
-        List<Product> productsByCategory = productRepository.getAllByCategoryId(UUID.fromString(category));
+    public List<ProductViewModel> getProductsByCategory(String category, Integer page, Integer size, Sort sort) throws NoSuchResultBySearchingCriteriaException {
+        Pageable pageable = PageRequest.of(page,size,sort);
+        Page<Product> productsByCategory = productRepository.getAllByCategoryId(UUID.fromString(category), pageable);
+        if (productsByCategory.getContent().isEmpty()) {
+            throw new NoSuchResultBySearchingCriteriaException("No found products by category  ");
+        }
         return productsByCategory
+                .getContent()
                 .stream()
                 .map(e -> modelMapper.map(e, ProductViewModel.class))
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<ProductViewModel> getProductsByCategoryAndBrand(String categoryId, String brand) throws NoSuchResultBySearchingCriteriaException {
-        List<Product> productsByCategoryAndBrand =
-                productRepository.getAllByCategoryIdAndManufacturer(UUID.fromString(categoryId), brand);
 
-        if (productsByCategoryAndBrand.isEmpty()) {
+    @Override
+    public List<ProductViewModel> getProductsByCategoryAndBrand(String categoryId, String brand,
+                                                                Integer page, Integer size, Sort sort) throws NoSuchResultBySearchingCriteriaException {
+        Pageable pageable = PageRequest.of(page,size,sort);
+        Page<Product> productsByCategoryAndBrand =
+                productRepository.getAllByCategoryIdAndManufacturer(UUID.fromString(categoryId), brand,pageable);
+
+        if (productsByCategoryAndBrand.getContent().isEmpty()) {
             throw new NoSuchResultBySearchingCriteriaException("No found products by category and brand ");
         }
 
@@ -68,29 +80,38 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductViewModel> getProductsByCategoryAndPrice(String categoryId, double priceRangeStart, double priceRangeEnd) throws NoSuchResultBySearchingCriteriaException {
-        List<Product> productsByCategoryAndPrice = productRepository.getAllByCategoryIdAndPriceBetween(UUID.fromString(categoryId),
-                BigDecimal.valueOf(priceRangeStart), BigDecimal.valueOf(priceRangeEnd));
+    public List<ProductViewModel> getProductsByCategoryAndPrice(String categoryId, double priceRangeStart, double priceRangeEnd,
+                                                                Integer page, Integer size, Sort sort) throws NoSuchResultBySearchingCriteriaException {
 
-        if (productsByCategoryAndPrice.isEmpty()) {
+        Pageable pageable = PageRequest.of(page,size,sort);
+
+        Page<Product> productsByCategoryAndPrice = productRepository.getAllByCategoryIdAndPriceBetween(UUID.fromString(categoryId),
+                BigDecimal.valueOf(priceRangeStart), BigDecimal.valueOf(priceRangeEnd),pageable);
+
+        if (productsByCategoryAndPrice.getContent().isEmpty()) {
             throw new NoSuchResultBySearchingCriteriaException("No found products by category and price ");
         }
 
         return productsByCategoryAndPrice
+                .getContent()
                 .stream()
                 .map(e -> modelMapper.map(e, ProductViewModel.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProductViewModel> getProductsByCategoryAndBrandAndPrice(String categoryId, String brand, double priceRangeStart, double priceRangeEnd) throws NoSuchResultBySearchingCriteriaException {
-        List<Product> productsByCategoryAndBrandAndPrice =
+    public List<ProductViewModel> getProductsByCategoryAndBrandAndPrice(String categoryId, String brand, double priceRangeStart, double priceRangeEnd,
+                                                                        Integer page, Integer size, Sort sort) throws NoSuchResultBySearchingCriteriaException {
+        Pageable pageable = PageRequest.of(page,size,sort);
+
+        Page<Product> productsByCategoryAndBrandAndPrice =
                 productRepository.getAllByCategoryIdAndManufacturerAndPriceBetween(UUID.fromString(categoryId), brand,
-                        BigDecimal.valueOf(priceRangeStart), BigDecimal.valueOf(priceRangeEnd));
-        if (productsByCategoryAndBrandAndPrice.isEmpty()) {
+                        BigDecimal.valueOf(priceRangeStart), BigDecimal.valueOf(priceRangeEnd),pageable);
+        if (productsByCategoryAndBrandAndPrice.getContent().isEmpty()) {
             throw new NoSuchResultBySearchingCriteriaException("No found products by category and brand and price ");
         }
         return productsByCategoryAndBrandAndPrice
+                .getContent()
                 .stream()
                 .map(e -> modelMapper.map(e, ProductViewModel.class))
                 .collect(Collectors.toList());

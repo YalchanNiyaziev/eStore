@@ -3,9 +3,18 @@ package com.yalco.estore.model.binding.customer.contacts;
 
 import com.yalco.estore.model.binding.customer.address.AddressBindingModel;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 public class CustomerContactsBindingModel {
+
+    @NotBlank
     private String phone;
+
+    @NotBlank
     private String email;
+
+    @Valid
     private AddressBindingModel address;
 
     public String getPhone() {

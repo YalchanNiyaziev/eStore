@@ -2,19 +2,38 @@ package com.yalco.estore.model.binding.product;
 
 import com.yalco.estore.model.binding.product.category.CategoryBindingModel;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
 public class ProductBindingModel {
+
+    @NotBlank
     private String name;
+
+    @Valid
     private CategoryBindingModel category;
+
+    @NotNull
     private BigDecimal price;
+
+    @NotBlank
     private String manufacturer;
+
+    @Min(1)
+    @NotNull
     private Integer productCount;
+
     private String releaseLocation;
+
     private String description;
+
     List<String> pictures;
+
     Map<String,String> customSpecifications;
 
     public String getName() {

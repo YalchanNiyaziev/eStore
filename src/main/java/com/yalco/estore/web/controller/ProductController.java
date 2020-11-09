@@ -1,6 +1,6 @@
 package com.yalco.estore.web.controller;
 
-import com.sun.istack.NotNull;
+
 import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
 import com.yalco.estore.exception.IdNotFoundException;
 import com.yalco.estore.model.binding.product.ProductBindingModel;
@@ -9,14 +9,18 @@ import com.yalco.estore.service.ProductService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
+@Validated
 public class ProductController {
 
     @Value("${products.default.sorting.criteria}")
@@ -30,7 +34,6 @@ public class ProductController {
 
     @Value("${products.default.counts.elements.per.page}")
     private Integer defaultPageSize;
-
 
     private final ProductService productService;
 
@@ -107,7 +110,7 @@ public class ProductController {
 
 
     @PostMapping
-    public ResponseEntity<ProductViewModel> create(@RequestBody ProductBindingModel productModel, @NotNull UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ProductViewModel> create(@RequestBody @Valid ProductBindingModel productModel, @NotNull UriComponentsBuilder uriBuilder) {
         ProductViewModel productViewModel = productService.createProduct(productModel);
         return ResponseEntity
                 .created(

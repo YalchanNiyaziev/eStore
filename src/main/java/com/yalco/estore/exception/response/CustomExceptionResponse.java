@@ -1,4 +1,4 @@
-package com.yalco.estore.exception;
+package com.yalco.estore.exception.response;
 
 public class CustomExceptionResponse {
     private Integer status;

@@ -56,7 +56,7 @@ public class Product {
     @ElementCollection
     private Map<String, String> customSpecifications;
 
-    @ManyToMany(mappedBy = "products",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
     private Set<Order> orders;
 
     public UUID getId() {

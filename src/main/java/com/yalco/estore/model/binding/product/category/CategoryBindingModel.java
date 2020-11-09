@@ -1,8 +1,10 @@
 package com.yalco.estore.model.binding.product.category;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class CategoryBindingModel {
+    @NotNull
     private UUID id;
     private String categoryType;
 

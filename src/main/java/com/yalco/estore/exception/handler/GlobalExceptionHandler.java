@@ -1,6 +1,7 @@
 package com.yalco.estore.exception.handler;
 
-import com.yalco.estore.exception.CustomExceptionResponse;
+import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.exception.response.CustomExceptionResponse;
 import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(exception,exceptionResponse,new HttpHeaders(),HttpStatus.BAD_REQUEST,webRequest);
     }
 
+    @ExceptionHandler(value = IdNotFoundException.class)
+    protected ResponseEntity<Object> handleIdNotFoundException(IdNotFoundException exception, WebRequest webRequest){
+        CustomExceptionResponse exceptionResponse = createResponse(HttpStatus.BAD_REQUEST, exception.getMessage(), LocalDateTime.now().toString());
+        return handleExceptionInternal(exception,exceptionResponse,new HttpHeaders(),HttpStatus.BAD_REQUEST,webRequest);
+    }
     CustomExceptionResponse createResponse(HttpStatus status, String exceptionMessage, String timestamp){
         CustomExceptionResponse exceptionResponse = new CustomExceptionResponse();
         exceptionResponse.setStatus(status.value());

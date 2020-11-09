@@ -5,12 +5,15 @@ import com.yalco.estore.model.binding.product.category.CategoryCreateModel;
 import com.yalco.estore.model.view.product.category.CategoryViewModel;
 import com.yalco.estore.service.CategoryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/categories")
+@Validated
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -29,7 +32,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody @NonNull CategoryCreateModel categoryCreateModel, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Void> create(@RequestBody @Valid CategoryCreateModel categoryCreateModel, UriComponentsBuilder uriBuilder) {
         CategoryViewModel categoryViewModel = categoryService.createCategory(categoryCreateModel);
         return
 

@@ -1,9 +1,15 @@
 package com.yalco.estore.model.binding.customer.address;
 
+import javax.validation.constraints.NotBlank;
+
 public class AddressBindingModel {
+    @NotBlank
     private String country;
+    @NotBlank
     private String city;
+    @NotBlank
     private String street;
+    @NotBlank
     private String streetNumber;
 
     public String getCountry() {

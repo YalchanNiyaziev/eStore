@@ -1,9 +1,9 @@
 package com.yalco.estore.exception;
 
-public class IdNotFoundException extends Exception{
+public class ElementNotFoundByIdException extends Exception{
   private String id;
 
-    public IdNotFoundException(String message, String id) {
+    public ElementNotFoundByIdException(String message, String id) {
         super(message);
         this.id = id;
     }

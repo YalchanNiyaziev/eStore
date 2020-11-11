@@ -1,6 +1,6 @@
 package com.yalco.estore.repository;
 
-import com.yalco.estore.entity.cart.Cart;
+import com.yalco.estore.entity.cart.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,8 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, UUID> {
-    Optional<Cart> getCartById(UUID id);
-    Optional<Cart> getCartByCustomerId(UUID customerId);
-
+public interface CartItemRepository extends JpaRepository<CartItem, UUID> {
+    Optional<CartItem> getCartItemById(UUID id);
 }

@@ -2,7 +2,7 @@ package com.yalco.estore.web.controller;
 
 
 import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
-import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.exception.ElementNotFoundByIdException;
 import com.yalco.estore.model.binding.product.ProductBindingModel;
 import com.yalco.estore.model.view.product.ProductViewModel;
 import com.yalco.estore.service.ProductService;
@@ -121,7 +121,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody ProductBindingModel productBindingModel) throws IdNotFoundException {
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody ProductBindingModel productBindingModel) throws ElementNotFoundByIdException {
         productService.updateProduct(id, productBindingModel);
         return ResponseEntity.noContent().build();
     }

@@ -1,7 +1,7 @@
 package com.yalco.estore.service.impl;
 
 import com.yalco.estore.entity.product.Category;
-import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.exception.ElementNotFoundByIdException;
 import com.yalco.estore.model.binding.product.category.CategoryCreateModel;
 import com.yalco.estore.model.view.product.category.CategoryViewModel;
 import com.yalco.estore.repository.CategoryRepository;
@@ -31,16 +31,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryViewModel getCategoryById(String id) throws IdNotFoundException {
+    public CategoryViewModel getCategoryById(String id) throws ElementNotFoundByIdException {
         Optional<Category> category = categoryRepository.findByIdAndAccessibleTrue(UUID.fromString(id));
-        return category.map(value -> mapper.map(value, CategoryViewModel.class)).orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id));
+        return category.map(value -> mapper.map(value, CategoryViewModel.class)).orElseThrow(() -> new ElementNotFoundByIdException("Could not found object with id: ", id));
     }
 
     @Override
-    public void deleteCategoryById(String id) throws IdNotFoundException {
+    public void deleteCategoryById(String id) throws ElementNotFoundByIdException {
         Optional<Category> category = Optional.ofNullable(categoryRepository
                 .findByIdAndAccessibleTrue(UUID.fromString(id))
-                .orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id)));
+                .orElseThrow(() -> new ElementNotFoundByIdException("Could not found object with id: ", id)));
         category.get().setAccessible(false);
         categoryRepository.save(category.get());
     }

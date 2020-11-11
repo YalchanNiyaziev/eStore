@@ -1,6 +1,6 @@
 package com.yalco.estore.web.controller;
 
-import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.exception.ElementNotFoundByIdException;
 import com.yalco.estore.model.binding.product.category.CategoryCreateModel;
 import com.yalco.estore.model.view.product.category.CategoryViewModel;
 import com.yalco.estore.service.CategoryService;
@@ -23,7 +23,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryViewModel> getById(@PathVariable String id) throws IdNotFoundException {
+    public ResponseEntity<CategoryViewModel> getById(@PathVariable String id) throws ElementNotFoundByIdException {
         CategoryViewModel categoryViewModel = categoryService.getCategoryById(id);
         if (categoryViewModel != null) {
             return ResponseEntity.ok(categoryViewModel);
@@ -47,7 +47,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) throws IdNotFoundException {
+    public ResponseEntity<String> delete(@PathVariable String id) throws ElementNotFoundByIdException {
         categoryService.deleteCategoryById(id);
         return ResponseEntity.noContent().build();
     }

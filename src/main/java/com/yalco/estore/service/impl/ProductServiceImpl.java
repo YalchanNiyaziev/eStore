@@ -3,7 +3,7 @@ package com.yalco.estore.service.impl;
 import com.yalco.estore.entity.product.Category;
 import com.yalco.estore.entity.product.Product;
 import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
-import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.exception.ElementNotFoundByIdException;
 import com.yalco.estore.model.binding.product.ProductBindingModel;
 import com.yalco.estore.model.view.product.ProductViewModel;
 import com.yalco.estore.repository.ProductRepository;
@@ -125,8 +125,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductViewModel updateProduct(String id, ProductBindingModel productBindingModel) throws IdNotFoundException {
-        Optional<Product> optionalProduct = Optional.ofNullable(productRepository.findById(UUID.fromString(id)).orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id)));
+    public ProductViewModel updateProduct(String id, ProductBindingModel productBindingModel) throws ElementNotFoundByIdException {
+        Optional<Product> optionalProduct = Optional.ofNullable(productRepository.findById(UUID.fromString(id)).orElseThrow(() -> new ElementNotFoundByIdException("Could not found object with id: ", id)));
         Product product = optionalProduct.get();
 
         product.setName(productBindingModel.getName());

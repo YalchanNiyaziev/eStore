@@ -12,10 +12,8 @@ public class ProductViewModel {
     private CategoryViewModel category;
     private BigDecimal price;
     private String manufacturer;
-    private String releaseLocation;
     private String description;
     private List<String> pictures;
-    private Map<String,String> customSpecifications;
 
     public String getId() {
         return id;
@@ -57,14 +55,6 @@ public class ProductViewModel {
         this.manufacturer = manufacturer;
     }
 
-    public String getReleaseLocation() {
-        return releaseLocation;
-    }
-
-    public void setReleaseLocation(String releaseLocation) {
-        this.releaseLocation = releaseLocation;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -81,11 +71,4 @@ public class ProductViewModel {
         this.pictures = pictures;
     }
 
-    public Map<String, String> getCustomSpecifications() {
-        return customSpecifications;
-    }
-
-    public void setCustomSpecifications(Map<String, String> customSpecifications) {
-        this.customSpecifications = customSpecifications;
-    }
 }

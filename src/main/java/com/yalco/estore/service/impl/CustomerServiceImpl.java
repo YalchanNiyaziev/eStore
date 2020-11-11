@@ -3,7 +3,7 @@ package com.yalco.estore.service.impl;
 import com.yalco.estore.entity.cart.Cart;
 import com.yalco.estore.entity.customer.Customer;
 import com.yalco.estore.entity.customer.CustomerContacts;
-import com.yalco.estore.exception.IdNotFoundException;
+import com.yalco.estore.exception.ElementNotFoundByIdException;
 import com.yalco.estore.model.binding.customer.CustomerBindingModel;
 import com.yalco.estore.model.binding.customer.contacts.CustomerContactsBindingModel;
 import com.yalco.estore.model.view.customer.CustomerViewModel;
@@ -28,9 +28,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerViewModel getCustomerById(String id) throws IdNotFoundException {
+    public CustomerViewModel getCustomerById(String id) throws ElementNotFoundByIdException {
         Optional<Customer> customer = customerRepository.findById(UUID.fromString(id));
-        return customer.map(value -> modelMapper.map(value, CustomerViewModel.class)).orElseThrow(() -> new IdNotFoundException("Could not found object with id: ", id));
+        return customer.map(value -> modelMapper.map(value, CustomerViewModel.class)).orElseThrow(() -> new ElementNotFoundByIdException("Could not found object with id: ", id));
 
     }
 
@@ -43,10 +43,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerViewModel updateCustomer(String id, CustomerBindingModel customerBindingModel) throws IdNotFoundException {
+    public CustomerViewModel updateCustomer(String id, CustomerBindingModel customerBindingModel) throws ElementNotFoundByIdException {
         Optional<Customer> optionalCustomer = customerRepository.findById(UUID.fromString(id));
         if (!optionalCustomer.isPresent()) {
-            throw new IdNotFoundException("Could not found object with id: ", id);
+            throw new ElementNotFoundByIdException("Could not found object with id: ", id);
         }
 
         Customer customer = optionalCustomer.get();

@@ -1,13 +1,11 @@
 package com.yalco.estore.entity.product;
 
-import com.yalco.estore.entity.purchase.Order;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 
@@ -50,9 +48,6 @@ public class Product {
 
     @ElementCollection
     private Map<String, String> customSpecifications;
-
-    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
-    private Set<Order> orders;
 
     public UUID getId() {
         return id;
@@ -132,14 +127,6 @@ public class Product {
 
     public void setCustomSpecifications(Map<String, String> customSpecifications) {
         this.customSpecifications = customSpecifications;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
     }
 
 }

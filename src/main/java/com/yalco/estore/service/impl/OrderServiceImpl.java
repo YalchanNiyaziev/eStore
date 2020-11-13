@@ -1,33 +1,76 @@
 package com.yalco.estore.service.impl;
 
+import com.yalco.estore.entity.cart.Cart;
+import com.yalco.estore.entity.enums.OrderStatus;
 import com.yalco.estore.entity.purchase.Order;
-import com.yalco.estore.model.binding.OrderPostModel;
-import com.yalco.estore.model.view.OrderDto;
+import com.yalco.estore.exception.ElementNotFoundByIdException;
+import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
+import com.yalco.estore.model.binding.order.OrderBindingModel;
+import com.yalco.estore.model.view.order.OrderViewModel;
+import com.yalco.estore.repository.CartRepository;
 import com.yalco.estore.repository.OrderRepository;
+import com.yalco.estore.service.CartService;
 import com.yalco.estore.service.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final CartRepository cartRepository;
+    private final CartService cartService;
     private final ModelMapper modelMapper;
+    private static Long orderNumber = 1L;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, CartRepository cartRepository, CartService cartService, ModelMapper modelMapper) {
         this.orderRepository = orderRepository;
+        this.cartRepository = cartRepository;
+        this.cartService = cartService;
         this.modelMapper = modelMapper;
     }
 
+
     @Override
-    public OrderDto makeOrder(OrderPostModel orderPostModel) {
-        Order order = modelMapper.map(orderPostModel,Order.class);
-        return null;
+    public List<OrderViewModel> getOrdersWithPaging(Integer page, Integer size, Sort sort) throws NoSuchResultBySearchingCriteriaException {
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Order> pagedOrders = orderRepository.findAll(pageable);
+        if (pagedOrders.isEmpty()) {
+            throw new NoSuchResultBySearchingCriteriaException("No found orders by category  ");
+        }
+        return pagedOrders
+                .stream()
+                .map(e -> modelMapper.map(e, OrderViewModel.class))
+                .collect(Collectors.toList());
+
     }
 
     @Override
-    public OrderDto updateOrder(String id, OrderPostModel orderPostModel) {
+    public OrderViewModel makeOrder(OrderBindingModel orderBindingModel) throws ElementNotFoundByIdException {
+        String cartId = orderBindingModel.getCartId();
+        Cart cart = cartRepository.getCartById(UUID.fromString(cartId))
+                .orElseThrow(() -> new ElementNotFoundByIdException("Cart not found with id", cartId));
+        Order order = new Order();
+        order.setCart(cart);
+        order.setStatus(OrderStatus.PENDING);
+        order.setOrderDate(orderBindingModel.getOrderDate());
+        order.setOrderNumber(orderNumber++);
+
+        Order savedOrder = orderRepository.save(order);
+        return modelMapper.map(savedOrder, OrderViewModel.class);
+    }
+
+    @Override
+    public OrderViewModel updateOrder(String id, OrderBindingModel orderBindingModel) {
         return null;
     }
 }

@@ -1,13 +1,11 @@
 package com.yalco.estore.entity.purchase;
 
-import com.yalco.estore.entity.customer.Customer;
+import com.yalco.estore.entity.cart.Cart;
 import com.yalco.estore.entity.enums.OrderStatus;
-import com.yalco.estore.entity.product.Product;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -23,7 +21,7 @@ public class Order {
     private UUID id;
 
     @Column(nullable = false)
-    private String orderNumber;
+    private Long orderNumber;
 
     @Column(nullable = false)
     private LocalDate orderDate;
@@ -32,17 +30,9 @@ public class Order {
     @Column(nullable = false)
     private OrderStatus status;
 
-    @ManyToOne
-    @JoinColumn(name="customer_id")
-    private Customer customer;
-
-    @ManyToMany
-    @JoinTable(
-            name="orders_products",
-            joinColumns = @JoinColumn(name="oreder_id"),
-            inverseJoinColumns = @JoinColumn(name="product_id")
-    )
-    private Set<Product> products;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
     public UUID getId() {
         return id;
@@ -52,11 +42,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getOrderNumber() {
+    public Long getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(String orderNumber) {
+    public void setOrderNumber(Long orderNumber) {
         this.orderNumber = orderNumber;
     }
 
@@ -76,19 +66,11 @@ public class Order {
         this.status = status;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

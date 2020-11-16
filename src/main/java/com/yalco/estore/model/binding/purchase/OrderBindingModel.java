@@ -1,6 +1,4 @@
-package com.yalco.estore.model.binding.order;
-
-import com.yalco.estore.model.binding.customer.CustomerBindingModel;
+package com.yalco.estore.model.binding.purchase;
 
 import java.time.LocalDate;
 

@@ -5,6 +5,7 @@ import com.yalco.estore.entity.enums.OrderStatus;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -33,6 +34,10 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    @Column( name = "total")
+    private BigDecimal orderTotal;
+
 
     public UUID getId() {
         return id;
@@ -72,5 +77,13 @@ public class Order {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public BigDecimal getOrderTotal() {
+        return orderTotal;
+    }
+
+    public void setOrderTotal(BigDecimal orderTotal) {
+        this.orderTotal = orderTotal;
     }
 }

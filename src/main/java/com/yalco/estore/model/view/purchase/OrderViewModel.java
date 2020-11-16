@@ -1,4 +1,4 @@
-package com.yalco.estore.model.view.order;
+package com.yalco.estore.model.view.purchase;
 
 import java.time.LocalDate;
 

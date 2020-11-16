@@ -1,10 +1,11 @@
 package com.yalco.estore.web.controller;
 
+import com.yalco.estore.entity.enums.OrderStatus;
 import com.yalco.estore.exception.ElementNotFoundByIdException;
 import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
-import com.yalco.estore.model.binding.order.OrderBindingModel;
-import com.yalco.estore.model.view.order.OrderViewModel;
-import com.yalco.estore.model.view.product.ProductViewModel;
+import com.yalco.estore.model.binding.purchase.OrderBindingModel;
+import com.yalco.estore.model.binding.purchase.OrderStatusBindingModel;
+import com.yalco.estore.model.view.purchase.OrderViewModel;
 import com.yalco.estore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,6 +68,14 @@ public class OrderController {
     public ResponseEntity<Void> updateOrder(@PathVariable String id,
                                             @RequestBody OrderBindingModel orderBindingModel) {
         orderService.updateOrder(id, orderBindingModel);
+        return null;
+
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable String id,
+                                            @RequestBody OrderStatusBindingModel orderStatus) throws ElementNotFoundByIdException {
+        orderService.updateOrderStatus(id, orderStatus);
         return null;
 
     }

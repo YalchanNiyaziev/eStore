@@ -1,5 +1,7 @@
 package com.yalco.estore.entity.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum OrderStatus {
     PENDING("pending"),
     APPROVED("approved"),
@@ -8,12 +10,14 @@ public enum OrderStatus {
     DELIVERED("delivered"),
     COMPLETED("completed");
 
-    private final String value;
+    @JsonValue
+    private final String status;
 
     OrderStatus(String value) {
-        this.value = value;
+        this.status = value;
     }
-    public String getValue(){
-        return value;
+    public String getStatus(){
+        return status;
     }
+
 }

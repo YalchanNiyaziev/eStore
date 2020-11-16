@@ -5,8 +5,9 @@ import com.yalco.estore.entity.enums.OrderStatus;
 import com.yalco.estore.entity.purchase.Order;
 import com.yalco.estore.exception.ElementNotFoundByIdException;
 import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
-import com.yalco.estore.model.binding.order.OrderBindingModel;
-import com.yalco.estore.model.view.order.OrderViewModel;
+import com.yalco.estore.model.binding.purchase.OrderBindingModel;
+import com.yalco.estore.model.binding.purchase.OrderStatusBindingModel;
+import com.yalco.estore.model.view.purchase.OrderViewModel;
 import com.yalco.estore.repository.CartRepository;
 import com.yalco.estore.repository.OrderRepository;
 import com.yalco.estore.service.CartService;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -63,6 +65,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCart(cart);
         order.setStatus(OrderStatus.PENDING);
         order.setOrderDate(orderBindingModel.getOrderDate());
+        order.setOrderTotal(calculateOrderTotal(order));
         order.setOrderNumber(orderNumber++);
 
         Order savedOrder = orderRepository.save(order);
@@ -73,4 +76,27 @@ public class OrderServiceImpl implements OrderService {
     public OrderViewModel updateOrder(String id, OrderBindingModel orderBindingModel) {
         return null;
     }
+
+    @Override
+    public OrderViewModel updateOrderStatus(String orderId, OrderStatusBindingModel orderStatus) throws ElementNotFoundByIdException {
+        Order order = orderRepository.findById(UUID.fromString(orderId))
+                .orElseThrow(() -> new ElementNotFoundByIdException("Order not found with id", orderId));
+
+        if(orderStatus.getStatus().equals(OrderStatus.COMPLETED)){
+            cartService.clearCart(order.getCart());
+        }
+        order.setStatus(orderStatus.getStatus());
+
+        Order updatedOrder = orderRepository.save(order);
+
+        return modelMapper.map(updatedOrder, OrderViewModel.class);
+    }
+
+    private BigDecimal calculateOrderTotal(Order order){
+        BigDecimal total = BigDecimal.ZERO;
+        order.getCart().getCartItems()
+        .forEach(i -> total.add(i.getTotal()));
+        return total;
+    }
+
 }

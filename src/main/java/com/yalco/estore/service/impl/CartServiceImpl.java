@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -37,7 +38,7 @@ public class CartServiceImpl implements CartService {
     public CartViewModel getCartByCustomerId(String customerId) throws ElementNotFoundByIdException {
         Cart cart = cartRepository.getCartByCustomerId(UUID.fromString(customerId))
                 .orElseThrow(() -> new ElementNotFoundByIdException("Cart not found with customer id", customerId));
-        return mapper.map(cart,CartViewModel.class);
+        return mapper.map(cart, CartViewModel.class);
     }
 
     @Override
@@ -80,9 +81,19 @@ public class CartServiceImpl implements CartService {
 
         cart.removeItem(cartItem);
 
+        cartItemRepository.delete(cartItem);
+
         Cart updatedCart = cartRepository.saveAndFlush(cart);
 
         return mapper.map(updatedCart, CartViewModel.class);
+    }
+
+    @Override
+    public void clearCart(Cart cart) {
+        List<CartItem> cartItems = cart.getCartItems();
+        cart.setCartItems(new ArrayList<>());
+        cartRepository.save(cart);
+        cartItems.forEach(cartItemRepository::delete);
     }
 
 

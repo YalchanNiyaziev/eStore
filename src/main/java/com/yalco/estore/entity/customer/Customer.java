@@ -26,7 +26,8 @@ public class Customer {
     private CustomerContacts contacts;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
+    @MapsId
+    @JoinColumn(name="id")
     private Cart cart;
 
     public UUID getId() {

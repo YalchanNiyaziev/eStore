@@ -34,6 +34,13 @@ public class CartItem {
     @JoinColumn(name="cart_id")
     private Cart cart;
 
+    @Column(name="is_accessible")
+    private boolean isAccessible;
+
+    public CartItem() {
+        this.isAccessible =true;
+    }
+
     public UUID getId() {
         return id;
     }
@@ -72,6 +79,14 @@ public class CartItem {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public boolean isAccessible() {
+        return isAccessible;
+    }
+
+    public void setAccessible(boolean accessible) {
+        isAccessible = accessible;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.yalco.estore.web.controller;
 
 import com.yalco.estore.exception.ElementNotFoundByIdException;
+import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
 import com.yalco.estore.model.binding.cart.CartItemProductBindingModel;
 import com.yalco.estore.model.view.cart.CartViewModel;
 import com.yalco.estore.service.CartService;
@@ -22,7 +23,7 @@ public class CartController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CartViewModel> getCartById(@PathVariable String id) throws ElementNotFoundByIdException {
+    public ResponseEntity<CartViewModel> getCartById(@PathVariable String id) throws ElementNotFoundByIdException{
         CartViewModel cartViewModel = cartService.getCartById(id);
         return ResponseEntity.ok(cartViewModel);
     }

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, UUID> {
-    Optional<Cart> getCartById(UUID id);
+
     Optional<Cart> getCartByCustomerId(UUID customerId);
 
 }

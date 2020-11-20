@@ -2,6 +2,7 @@ package com.yalco.estore.service.impl;
 
 import com.yalco.estore.entity.cart.CartItem;
 import com.yalco.estore.exception.ElementNotFoundByIdException;
+import com.yalco.estore.exception.NoSuchResultBySearchingCriteriaException;
 import com.yalco.estore.model.binding.cart.CartItemBindingModel;
 import com.yalco.estore.model.view.cart.CartItemViewModel;
 import com.yalco.estore.repository.CartItemRepository;
@@ -10,7 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class CartItemServiceImpl implements CartItemService {
@@ -35,6 +38,20 @@ public class CartItemServiceImpl implements CartItemService {
 
         CartItem updatedItem = cartItemRepository.save(cartItem);
         return mapper.map(updatedItem,CartItemViewModel.class);
+    }
+
+    @Override
+    public List<CartItemViewModel> getAllByCustomer(String customerId) throws NoSuchResultBySearchingCriteriaException {
+        List<CartItem> cartItemList = cartItemRepository.getCartsItemByCustomerIdAndAccessibleIsTrue(UUID.fromString(customerId));
+
+        if (cartItemList.isEmpty()) {
+            throw new NoSuchResultBySearchingCriteriaException("No found cart items by given customer id "+customerId);
+        }
+
+        return cartItemList
+                .stream()
+                .map( e -> mapper.map(e, CartItemViewModel.class))
+                .collect(Collectors.toList());
     }
 
 

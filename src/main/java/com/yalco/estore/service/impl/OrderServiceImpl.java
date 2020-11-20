@@ -59,13 +59,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderViewModel makeOrder(OrderBindingModel orderBindingModel) throws ElementNotFoundByIdException {
         String cartId = orderBindingModel.getCartId();
-        Cart cart = cartRepository.getCartById(UUID.fromString(cartId))
+        Cart cart = cartRepository.findById(UUID.fromString(cartId))
                 .orElseThrow(() -> new ElementNotFoundByIdException("Cart not found with id", cartId));
+
         Order order = new Order();
         order.setCart(cart);
         order.setStatus(OrderStatus.PENDING);
         order.setOrderDate(orderBindingModel.getOrderDate());
-        order.setOrderTotal(calculateOrderTotal(order));
+        order.setOrderTotal(calculateOrderTotal(cart));
         order.setOrderNumber(orderNumber++);
 
         Order savedOrder = orderRepository.save(order);
@@ -92,9 +93,9 @@ public class OrderServiceImpl implements OrderService {
         return modelMapper.map(updatedOrder, OrderViewModel.class);
     }
 
-    private BigDecimal calculateOrderTotal(Order order){
+    private BigDecimal calculateOrderTotal(Cart cart){
         BigDecimal total = BigDecimal.ZERO;
-        order.getCart().getCartItems()
+        cart.getCartItems()
         .forEach(i -> total.add(i.getTotal()));
         return total;
     }

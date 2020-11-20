@@ -20,7 +20,7 @@ public enum ProductCategoryType {
     GARDEN,
     GAMING,
     LAPTOP,
-    SPORTS,
+    SPORT,
     AUDIO,
     BOOKS,
     DRYER,
@@ -28,5 +28,6 @@ public enum ProductCategoryType {
     VIDEO,
     HOME,
     TOYS,
-    TV
+    TV;
+
 }

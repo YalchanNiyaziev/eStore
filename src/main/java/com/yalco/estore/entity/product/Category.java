@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "categories", uniqueConstraints = {@UniqueConstraint(columnNames = "category_name")})
 public class Category {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -18,15 +18,14 @@ public class Category {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name="type", nullable = false)
+    @Column(name = "category_name", nullable = false)
     private ProductCategoryType categoryType;
 
-    @Column(name="is_accessible",nullable = false)
-    private boolean isAccessible;
+    @Column(name = "accessible", nullable = false)
+    private boolean accessible;
 
     public Category() {
-        isAccessible=true;
+
     }
 
     public UUID getId() {
@@ -46,10 +45,10 @@ public class Category {
     }
 
     public boolean isAccessible() {
-        return isAccessible;
+        return accessible;
     }
 
     public void setAccessible(boolean accessible) {
-        isAccessible = accessible;
+        this.accessible = accessible;
     }
 }

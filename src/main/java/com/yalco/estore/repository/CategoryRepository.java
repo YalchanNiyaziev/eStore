@@ -1,5 +1,6 @@
 package com.yalco.estore.repository;
 
+import com.yalco.estore.entity.enums.ProductCategoryType;
 import com.yalco.estore.entity.product.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +13,8 @@ import java.util.UUID;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, UUID> {
 
-    @Query(value = "select c from Category c where c.id = :category_id and c.isAccessible = true")
+    @Query(value = "select c from Category c where c.id = :category_id and c.accessible = true")
     Optional<Category> findByIdAndAccessibleTrue(@Param(value = "category_id") UUID id);
+
+    Optional<Category> findByCategoryTypeAndAccessibleTrue(ProductCategoryType categoryType);
 }

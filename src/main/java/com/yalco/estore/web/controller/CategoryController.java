@@ -22,9 +22,9 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoryViewModel> getById(@PathVariable String id) throws ElementNotFoundByIdException {
-        CategoryViewModel categoryViewModel = categoryService.getCategoryById(id);
+    @GetMapping("/{name}")
+    public ResponseEntity<CategoryViewModel> getByName(@PathVariable String name) throws ElementNotFoundByIdException {
+        CategoryViewModel categoryViewModel = categoryService.getCategoryByName(name);
         if (categoryViewModel != null) {
             return ResponseEntity.ok(categoryViewModel);
         }

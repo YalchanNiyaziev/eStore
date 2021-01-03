@@ -1,9 +1,9 @@
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+create extension if not exists "uuid-ossp";
 
 create table if not exists categories(
-    id              UUID            PRIMARY KEY UNIQUE NOT NULL default uuid_generate_v4(),
-    category_name   varchar(255)    UNIQUE NOT NULL,
-    accessible      boolean         NOT NULL
+    id              UUID            primary key unique not null default uuid_generate_v4(),
+    category_name   varchar(256)    unique not null,
+    accessible      boolean         not null
 );
 
 insert into categories( category_name, accessible) values ('smart-phones', true);
@@ -13,7 +13,7 @@ insert into categories(category_name, accessible) values ('smart-phone-chargers'
 insert into categories(category_name, accessible) values ('smart-phone-cables', true);
 insert into categories(category_name, accessible) values ('smart-phone-powerbank', true);
 insert into categories(category_name, accessible) values ('smart-phone-other-accessories', true);
-insert into categories(category_name, accessible) values ('ablets', true);
+insert into categories(category_name, accessible) values ('tablets', true);
 insert into categories(category_name, accessible) values ('tablet-cases', true);
 insert into categories(category_name, accessible) values ('tablet-charges', true);
 insert into categories(category_name, accessible) values ('tablet-cables', true);

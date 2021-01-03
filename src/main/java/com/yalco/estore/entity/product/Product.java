@@ -34,7 +34,7 @@ public class Product {
     @Column(nullable = false)
     private String manufacturer;
 
-    @Column(name = "count", nullable = false)
+    @Column(name = "product_count", nullable = false)
     private Integer productCount;
 
     @Column(name = "made_in")
